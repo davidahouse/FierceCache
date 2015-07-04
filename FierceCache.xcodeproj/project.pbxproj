@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		941E2DA31B476AB300274FAA /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 941E2DA11B476AB300274FAA /* CHANGELOG.md */; };
+		941E2DA41B476AB300274FAA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 941E2DA21B476AB300274FAA /* README.md */; };
 		944E024E1B4401FF000DD7CE /* FierceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 944E024D1B4401FF000DD7CE /* FierceCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		944E02551B4401FF000DD7CE /* FierceCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944E024A1B4401FF000DD7CE /* FierceCache.framework */; };
 		944E025A1B4401FF000DD7CE /* FierceCacheBasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944E02591B4401FF000DD7CE /* FierceCacheBasicTests.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		941E2DA11B476AB300274FAA /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		941E2DA21B476AB300274FAA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		944E024A1B4401FF000DD7CE /* FierceCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FierceCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		944E024D1B4401FF000DD7CE /* FierceCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FierceCache.h; sourceTree = "<group>"; };
 		944E024F1B4401FF000DD7CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 		944E02401B4401FE000DD7CE = {
 			isa = PBXGroup;
 			children = (
+				941E2DA11B476AB300274FAA /* CHANGELOG.md */,
+				941E2DA21B476AB300274FAA /* README.md */,
 				944E024C1B4401FF000DD7CE /* FierceCache */,
 				944E02581B4401FF000DD7CE /* FierceCacheTests */,
 				944E024B1B4401FF000DD7CE /* Products */,
@@ -212,6 +218,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				94D332DA1B44C02E009C0A01 /* FierceCacheBinder.swift in Sources */,
+				941E2DA31B476AB300274FAA /* CHANGELOG.md in Sources */,
+				941E2DA41B476AB300274FAA /* README.md in Sources */,
 				944E02661B44024C000DD7CE /* FierceCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

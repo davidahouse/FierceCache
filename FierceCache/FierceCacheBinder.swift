@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias fierceBinderGetNotify = (Any,FierceCacheNotificationType) -> ()
+typealias fierceBinderGetNotify = (String,Any?,FierceCacheNotificationType) -> ()
 typealias fierceBinderQueryNotify = ([(String,Any)],FierceCacheNotificationType) -> ()
 typealias fierceBinderNotify = (String,Any) -> ()
 
@@ -19,9 +19,27 @@ class FierceCacheBinder {
     let path:String
     var onInsert:fierceBinderNotify?
     var onUpdate:fierceBinderNotify?
-    var onGet:fierceBinderGetNotify?
-    var onQuery:fierceBinderQueryNotify?
     var onDelete:fierceBinderNotify?
+
+    var onGet:fierceBinderGetNotify? {
+        didSet {
+            if let object = self.cache.get(self.path) {
+                if let notify = self.onGet {
+                    notify(self.path,object,.Existing)
+                }
+            }
+        }
+    }
+    
+    var onQuery:fierceBinderQueryNotify? {
+        didSet {
+            if let result:Array<(String,Any)> = self.cache.query(self.path) {
+                if let notify = self.onQuery {
+                    notify(result,.Existing)
+                }
+            }
+        }
+    }
     
     init(cache:FierceCache,path:String) {
         self.cache = cache
@@ -63,8 +81,11 @@ class FierceCacheBinder {
             }
             
             if let notify = self.onGet {
-                if let result = self.cache.get(details.path) {
-                    notify(result,details.type)
+                if details.type == .Delete {
+                    notify(details.path,nil,details.type)
+                }
+                else {
+                    notify(details.path,details.object,details.type)
                 }
             }
             

@@ -13,6 +13,7 @@ enum FierceCacheNotificationType {
     case Insert
     case Delete
     case Update
+    case Existing
 }
 
 class FierceCacheNotification {

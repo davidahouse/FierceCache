@@ -92,12 +92,14 @@ class FierceCacheBinderTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expect notify closure is called")
         
         let binder = cache.bind("/strings/1")
-        binder.onGet = { (object:Any,type:FierceCacheNotificationType) in
+        binder.onGet = { (path:String,object:Any?,type:FierceCacheNotificationType) in
         
             if type == .Insert {
-                if let result = object as? String {
-                    if result == "This is a test payload going into the cache" {
-                        expectation.fulfill()
+                if path == "/strings/1" {
+                    if let result = object as? String {
+                        if result == "This is a test payload going into the cache" {
+                            expectation.fulfill()
+                        }
                     }
                 }
             }
@@ -114,12 +116,14 @@ class FierceCacheBinderTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expect notify closure is called")
         
         let binder = cache.bind("/strings/1")
-        binder.onGet = { (object:Any,type:FierceCacheNotificationType) in
+        binder.onGet = { (path:String,object:Any?,type:FierceCacheNotificationType) in
             
             if type == .Update {
-                if let result = object as? String {
-                    if result == "This is the updated payload" {
-                        expectation.fulfill()
+                if path == "/strings/1" {
+                    if let result = object as? String {
+                        if result == "This is the updated payload" {
+                            expectation.fulfill()
+                        }
                     }
                 }
             }
@@ -130,6 +134,29 @@ class FierceCacheBinderTests: XCTestCase {
         
         let payloadUpdated = "This is the updated payload"
         cache.set("/strings/1", object:payloadUpdated)
+        
+        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+    }
+    
+    func testOnGetFromDelete() {
+        
+        let expectation = self.expectationWithDescription("Expect notify closure is called")
+        
+        let binder = cache.bind("/strings/1")
+        binder.onGet = { (path:String,object:Any?,type:FierceCacheNotificationType) in
+            
+            if type == .Delete {
+                if path == "/strings/1" {
+                    if object == nil {
+                        expectation.fulfill()
+                    }
+                }
+            }
+        }
+        
+        let payload = "This is a test payload going into the cache"
+        cache.set("/strings/1", object:payload)
+        cache.set("/strings/1", object:nil)
         
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
@@ -218,6 +245,54 @@ class FierceCacheBinderTests: XCTestCase {
         cache.set("/strings/1", object:payload)
         cache.set("/strings/1", object:nil)
         
+        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+    }
+    
+    func testOnGetWithExisting() {
+        
+        let expectation = self.expectationWithDescription("Expect notify closure is called")
+
+        let payload = "This is a test payload going into the cache"
+        cache.set("/strings/1", object:payload)
+
+        let binder = cache.bind("/strings/1")
+        binder.onGet = { (path:String,object:Any?,type:FierceCacheNotificationType) in
+            
+            if type == .Existing {
+                if path == "/strings/1" {
+                    if let result = object as? String {
+                        if result == "This is a test payload going into the cache" {
+                            expectation.fulfill()
+                        }
+                    }
+                }
+            }
+        }
+
+        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+    }
+    
+    
+    func testOnQueryWithExisting() {
+        
+        let expectation = self.expectationWithDescription("Expect notify closure is called")
+
+        let stuff = ["first one", "second one", "third", "fourth"]
+        
+        for ( var i = 0; i < stuff.count; i++ ) {
+            let thing = stuff[i]
+            cache.set("/things/\(i)", object: thing)
+        }
+        
+        let binder = cache.bind("/things")
+        binder.onQuery = { (objects:[(String,Any)],notification:FierceCacheNotificationType) in
+            
+            if objects.count == 4 {
+                expectation.fulfill()
+            }
+            
+        }
+    
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
 }
