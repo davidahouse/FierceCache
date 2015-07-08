@@ -9,14 +9,14 @@
 import Foundation
 
 // MARK: FierceCache notitifications
-enum FierceCacheNotificationType {
+public enum FierceCacheNotificationType {
     case Insert
     case Delete
     case Update
     case Existing
 }
 
-class FierceCacheNotification {
+public class FierceCacheNotification {
     let type:FierceCacheNotificationType
     let object:Any?
     let path:String
@@ -52,10 +52,10 @@ struct FierceCacheItem {
 }
 
 // MARK: FierceCacheQueryFilter
-typealias fierceCacheQueryFilter = (path:String,value:Any) -> Bool
+public typealias fierceCacheQueryFilter = (path:String,value:Any) -> Bool
 
 // MARK: FierceCacheProviderDelegate
-protocol FierceCacheProviderDelegate {
+public protocol FierceCacheProviderDelegate {
     
     func didInsert(path:String,object:Any?)
     func didUpdate(path:String,object:Any?)
@@ -65,12 +65,12 @@ protocol FierceCacheProviderDelegate {
 
 
 // MARK: FierceCache class
-class FierceCache {
+public class FierceCache {
     
     var contents:Dictionary<String,FierceCacheItem> = Dictionary<String,FierceCacheItem>()
     var delegate:FierceCacheProviderDelegate?
     
-    init() {
+    public init() {
         
     }
     
@@ -87,7 +87,7 @@ class FierceCache {
         }
     }
     
-    func set(path:String,object:Any?) {
+    public func set(path:String,object:Any?) {
         
         print("[FierceCache set] \(path)")
 

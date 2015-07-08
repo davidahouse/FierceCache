@@ -8,12 +8,12 @@
 
 import Foundation
 
-typealias fierceBinderGetNotify = (String,Any?,FierceCacheNotificationType) -> ()
-typealias fierceBinderQueryNotify = ([(String,Any)],FierceCacheNotificationType) -> ()
-typealias fierceBinderNotify = (String,Any) -> ()
+public typealias fierceBinderGetNotify = (String,Any?,FierceCacheNotificationType) -> ()
+public typealias fierceBinderQueryNotify = ([(String,Any)],FierceCacheNotificationType) -> ()
+public typealias fierceBinderNotify = (String,Any) -> ()
 
 // MARK: FierceCacheBinder
-class FierceCacheBinder {
+public class FierceCacheBinder {
     
     let cache:FierceCache
     let path:String

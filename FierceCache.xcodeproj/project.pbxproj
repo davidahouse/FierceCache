@@ -3,12 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		941E2DA31B476AB300274FAA /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 941E2DA11B476AB300274FAA /* CHANGELOG.md */; };
-		941E2DA41B476AB300274FAA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 941E2DA21B476AB300274FAA /* README.md */; };
 		944E024E1B4401FF000DD7CE /* FierceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 944E024D1B4401FF000DD7CE /* FierceCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		944E02551B4401FF000DD7CE /* FierceCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944E024A1B4401FF000DD7CE /* FierceCache.framework */; };
 		944E025A1B4401FF000DD7CE /* FierceCacheBasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944E02591B4401FF000DD7CE /* FierceCacheBasicTests.swift */; };
@@ -178,7 +176,7 @@
 				};
 			};
 			buildConfigurationList = 944E02441B4401FE000DD7CE /* Build configuration list for PBXProject "FierceCache" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -218,8 +216,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				94D332DA1B44C02E009C0A01 /* FierceCacheBinder.swift in Sources */,
-				941E2DA31B476AB300274FAA /* CHANGELOG.md in Sources */,
-				941E2DA41B476AB300274FAA /* README.md in Sources */,
 				944E02661B44024C000DD7CE /* FierceCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
