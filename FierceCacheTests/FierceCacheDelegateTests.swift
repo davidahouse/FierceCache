@@ -17,6 +17,7 @@ class FierceCacheMockDelegate : FierceCacheProviderDelegate {
     var updateObject:Any?
     var deletePath:String?
     var deleteObject:Any?
+    var getPath:String?
     var queryPath:String?
 
     func didInsert(path: String, object: Any?) {
@@ -32,6 +33,10 @@ class FierceCacheMockDelegate : FierceCacheProviderDelegate {
     func didDelete(path: String, object: Any?) {
         self.deletePath = path
         self.deleteObject = object
+    }
+    
+    func didGet(path: String) {
+        self.getPath = path
     }
     
     func didQuery(path: String) {
@@ -142,6 +147,25 @@ class FierceCacheDelegateTests: XCTestCase {
             XCTFail("deleteObject not set")
         }
         
+    }
+    
+    func testDelegateOnGet() {
+        
+        let stuff = ["first one", "second one", "third", "fourth"]
+        
+        for ( var i = 0; i < stuff.count; i++ ) {
+            let thing = stuff[i]
+            cache.set("/things/\(i)", object: thing)
+        }
+
+        cache.get("/things/1")
+        
+        if let queryPath = cacheDelegate.getPath {
+            XCTAssertEqual(queryPath, "/things/1")
+        }
+        else {
+            XCTFail("get path not set")
+        }
     }
     
     func testDelegateOnQuery() {

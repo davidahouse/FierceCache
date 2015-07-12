@@ -17,11 +17,11 @@ public class FierceCacheBinder {
     
     let cache:FierceCache
     let path:String
-    var onInsert:fierceBinderNotify?
-    var onUpdate:fierceBinderNotify?
-    var onDelete:fierceBinderNotify?
+    public var onInsert:fierceBinderNotify?
+    public var onUpdate:fierceBinderNotify?
+    public var onDelete:fierceBinderNotify?
 
-    var onGet:fierceBinderGetNotify? {
+    public var onGet:fierceBinderGetNotify? {
         didSet {
             if let object = self.cache.get(self.path) {
                 if let notify = self.onGet {
@@ -31,7 +31,7 @@ public class FierceCacheBinder {
         }
     }
     
-    var onQuery:fierceBinderQueryNotify? {
+    public var onQuery:fierceBinderQueryNotify? {
         didSet {
             if let result:Array<(String,Any)> = self.cache.query(self.path) {
                 if let notify = self.onQuery {

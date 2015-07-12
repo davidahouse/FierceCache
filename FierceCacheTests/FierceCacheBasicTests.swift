@@ -185,7 +185,7 @@ class FierceCacheBasicTests: XCTestCase {
         }
     }
     
-    func testQueryWithHetrogeneousContents() {
+    func testQueryWithHeterogeneousContents() {
         
         let stuff:Array<Any> = ["first one", "second one", StructTest(name: "fred", title: "rock crucsher"), ClassTest(name: "barney", title: "whatever")]
         

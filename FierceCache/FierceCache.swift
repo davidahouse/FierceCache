@@ -60,6 +60,7 @@ public protocol FierceCacheProviderDelegate {
     func didInsert(path:String,object:Any?)
     func didUpdate(path:String,object:Any?)
     func didDelete(path:String,object:Any?)
+    func didGet(path:String)
     func didQuery(path:String)
 }
 
@@ -75,10 +76,14 @@ public class FierceCache {
     }
     
     // MARK: Public methods
-    func get(path:String) -> Any? {
+    public func get(path:String) -> Any? {
         
         print("[FierceCache get] \(path)")
         
+        if let delegate = delegate {
+            delegate.didGet(path)
+        }
+
         if let item = contents[path] {
             return item.object
         }
@@ -131,14 +136,14 @@ public class FierceCache {
         }
     }
     
-    func set(objects:[(String,Any?)]) {
+    public func set(objects:[(String,Any?)]) {
         
         for (path,object) in objects {
             self.set(path, object: object)
         }
     }
     
-    func query(path:String) -> Array<(String,Any)> {
+    public func query(path:String) -> Array<(String,Any)> {
         
         if let delegate = delegate {
             delegate.didQuery(path)
@@ -150,7 +155,7 @@ public class FierceCache {
         return found.map({($0.1.path,$0.1.object)})
     }
     
-    func query(path:String,filter:fierceCacheQueryFilter) -> Array<(String,Any)> {
+    public func query(path:String,filter:fierceCacheQueryFilter) -> Array<(String,Any)> {
 
         if let delegate = delegate {
             delegate.didQuery(path)
@@ -162,13 +167,13 @@ public class FierceCache {
         return found.map({($0.1.path,$0.1.object)})
     }
     
-    func bind(path:String) -> FierceCacheBinder {
+    public func bind(path:String) -> FierceCacheBinder {
         
         let binder = FierceCacheBinder(cache: self, path: path)
         return binder
     }
     
-    func emptyCache() {
+    public func emptyCache() {
         
         // toast anything in the cache
         self.contents = Dictionary<String,FierceCacheItem>()

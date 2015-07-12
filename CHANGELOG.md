@@ -1,5 +1,11 @@
 # FierceCache CHANGELOG
 
+## 0.0.3
+
+Added OSX target.
+Added didGet method to delegate protocol.
+Initial readme documentation.
+
 ## 0.0.2
 
 Added an Existing notification type and now onGet and onQuery will be triggered immediately if

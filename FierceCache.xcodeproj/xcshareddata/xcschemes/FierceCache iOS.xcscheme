@@ -16,18 +16,18 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "944E02491B4401FF000DD7CE"
                BuildableName = "FierceCache.framework"
-               BlueprintName = "FierceCache"
+               BlueprintName = "FierceCache iOS"
                ReferencedContainer = "container:FierceCache.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES"
-      buildConfiguration = "Debug">
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -45,7 +45,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "944E02491B4401FF000DD7CE"
             BuildableName = "FierceCache.framework"
-            BlueprintName = "FierceCache"
+            BlueprintName = "FierceCache iOS"
             ReferencedContainer = "container:FierceCache.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -53,11 +53,11 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -67,7 +67,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "944E02491B4401FF000DD7CE"
             BuildableName = "FierceCache.framework"
-            BlueprintName = "FierceCache"
+            BlueprintName = "FierceCache iOS"
             ReferencedContainer = "container:FierceCache.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -75,17 +75,17 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "944E02491B4401FF000DD7CE"
             BuildableName = "FierceCache.framework"
-            BlueprintName = "FierceCache"
+            BlueprintName = "FierceCache iOS"
             ReferencedContainer = "container:FierceCache.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
