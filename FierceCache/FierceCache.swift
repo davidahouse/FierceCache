@@ -191,7 +191,7 @@ public class FierceCache {
         notifyInfo["notification"] = notification
         NSNotificationCenter.defaultCenter().postNotificationName(path, object: nil, userInfo:notifyInfo)
         
-        let parentPath = path.stringByDeletingLastPathComponent
+        let parentPath = NSString(string:path).stringByDeletingLastPathComponent as String
         if parentPath != "/" && parentPath.characters.count >= 1 {
             propogateNotifications(parentPath,notification:FierceCacheNotification(type: notification.type, path: parentPath, object: notification.object))
         }
