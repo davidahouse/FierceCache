@@ -1,5 +1,9 @@
 # FierceCache CHANGELOG
 
+## 0.0.4
+
+Fixed compiler problem with Beta 5. The path related methods/properties on a Swift string bridged to NSString are no longer directly available.
+
 ## 0.0.3
 
 Added OSX target.
