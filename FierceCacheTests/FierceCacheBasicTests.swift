@@ -47,9 +47,9 @@ class FierceCacheBasicTests: XCTestCase {
     func testSetAndGet() {
         
         let payload = "This is a test payload going into the cache"
-        cache.set("/strings/1", object:payload)
+        cache.set("string_1", object:payload)
         
-        if let result = cache.get("/strings/1") as? String {
+        if let result = cache.get("string_1") as? String {
             XCTAssertEqual(result, payload,"Cache returned something but wasn't the same as what we put in")
         }
         else {
@@ -60,9 +60,9 @@ class FierceCacheBasicTests: XCTestCase {
     func testUpdate() {
         
         let payload = "This is the initial string"
-        cache.set("/strings/update", object: payload)
+        cache.set("string_update", object: payload)
 
-        if let result = cache.get("/strings/update") as? String {
+        if let result = cache.get("string_update") as? String {
             XCTAssertEqual(result, payload,"Cache returned something but wasn't the same as what we put in")
         }
         else {
@@ -70,9 +70,9 @@ class FierceCacheBasicTests: XCTestCase {
         }
 
         let newPayload = "Here is the newer string"
-        cache.set("/strings/update", object: newPayload)
+        cache.set("string_update", object: newPayload)
         
-        if let result = cache.get("/strings/update") as? String {
+        if let result = cache.get("string_update") as? String {
             XCTAssertEqual(result, newPayload,"Cache returned something but wasn't the same as what we put in")
         }
         else {
@@ -83,17 +83,17 @@ class FierceCacheBasicTests: XCTestCase {
     func testDelete() {
         
         let payload = "This is the initial string"
-        cache.set("/strings/delete", object: payload)
+        cache.set("strings_delete", object: payload)
         
-        if let result = cache.get("/strings/delete") as? String {
+        if let result = cache.get("strings_delete") as? String {
             XCTAssertEqual(result, payload,"Cache returned something but wasn't the same as what we put in")
         }
         else {
             XCTFail("cache returned a nil object, but it should have been there")
         }
         
-        cache.set("/strings/delete", object: nil)
-        if let result = cache.get("/strings/delete") as? String {
+        cache.set("strings_delete", object: nil)
+        if let result = cache.get("strings_delete") as? String {
             XCTFail("cache returned something, but it was supposed to be deleted. returned \(result)")
         }
     }
@@ -101,9 +101,9 @@ class FierceCacheBasicTests: XCTestCase {
     func testGetCasting() {
         
         let payload = "This is a test payload going into the cache"
-        cache.set("/strings/string", object:payload)
+        cache.set("strings_string", object:payload)
 
-        if let result = cache.get("/strings/string") as? Int {
+        if let result = cache.get("strings_string") as? Int {
             XCTFail("cache returned something and cast it to an Int, but it should be a string. result: \(result)")
         }
     }
@@ -114,12 +114,12 @@ class FierceCacheBasicTests: XCTestCase {
         
         for ( var i = 0; i < stuff.count; i++ ) {
             let thing = stuff[i]
-            cache.set("/things/\(i)", object: thing)
+            cache.set("things_\(i)", object: thing)
         }
         
         for ( var i = 0; i < stuff.count; i++ ) {
             let thing = stuff[i]
-            if let result = cache.get("/things/\(i)") as? String {
+            if let result = cache.get("things_\(i)") as? String {
                 XCTAssertEqual(result, thing, "Cache returned something unexpected")
             }
         }
@@ -128,9 +128,9 @@ class FierceCacheBasicTests: XCTestCase {
     func testGetInvalidPath() {
 
         let payload = "This is a test payload going into the cache"
-        cache.set("/strings/1", object:payload)
+        cache.set("strings_1", object:payload)
 
-        if let result = cache.get("/strings/X") as? String {
+        if let result = cache.get("strings_X") as? String {
             XCTFail("cache returned something but the path was invalid. result: \(result)")
         }
     }
@@ -138,9 +138,9 @@ class FierceCacheBasicTests: XCTestCase {
     func testStoreStruct() {
      
         let myStruct = StructTest(name: "fred", title: "rock crusher")
-        cache.set("/people/fred",object: myStruct)
+        cache.set("fred",object: myStruct)
     
-        if let result = cache.get("/people/fred") as? StructTest {
+        if let result = cache.get("fred") as? StructTest {
             XCTAssertEqual(result.name, myStruct.name)
             XCTAssertEqual(result.title, myStruct.title)
         }
@@ -149,9 +149,9 @@ class FierceCacheBasicTests: XCTestCase {
     func testStoreClass() {
         
         let myClass = ClassTest(name: "fred", title: "rock crusher")
-        cache.set("/people/fred",object: myClass)
+        cache.set("fred",object: myClass)
         
-        if let result = cache.get("/people/fred") as? ClassTest {
+        if let result = cache.get("fred") as? ClassTest {
             XCTAssertEqual(result.name, myClass.name)
             XCTAssertEqual(result.title, myClass.title)
         }
@@ -159,11 +159,17 @@ class FierceCacheBasicTests: XCTestCase {
     
     func testMultiSet() {
         
-        let stuff:[(String,Any?)] = [("/things/1","first one"),("/things/2","second one"),("/things/3","third"),("/things/4","fourth")]
+        let stuff:[(String,Any?)] = [("thing_1","first one"),("thing_2","second one"),("thing_3","third"),("thing_4","fourth")]
         cache.set(stuff)
 
-        let foundStuff = cache.query("/things")
-        XCTAssertEqual(stuff.count, foundStuff.count,"Query returned the wrong number of records")
+        for ( var i = 1; i <= stuff.count; i++ ) {
+            let thing = stuff[i-1]
+            if let thing_string = thing.1 as? String {
+                if let result = cache.get("thing_\(i)") as? String {
+                    XCTAssertEqual(result, thing_string, "Cache returned something unexpected")
+                }
+            }
+        }
     }
     
     func testQuery() {
@@ -172,15 +178,18 @@ class FierceCacheBasicTests: XCTestCase {
         
         for ( var i = 0; i < stuff.count; i++ ) {
             let thing = stuff[i]
-            cache.set("/things/\(i)", object: thing)
+            cache.set("thing_\(i)", object: thing, tags:["things"])
         }
         
-        let foundStuff = cache.query("/things")
+        let foundStuff = cache.query("things")
         XCTAssertEqual(stuff.count, foundStuff.count,"Query returned the wrong number of records")
         for (path,object) in foundStuff {
             XCTAssertNotNil(path)
             if let thing = object as? String {
                 XCTAssertTrue(stuff.contains(thing))
+            }
+            else {
+                XCTFail()
             }
         }
     }
@@ -191,10 +200,10 @@ class FierceCacheBasicTests: XCTestCase {
         
         for ( var i = 0; i < stuff.count; i++ ) {
             let thing = stuff[i]
-            cache.set("/things/\(i)", object: thing)
+            cache.set("things\(i)", object: thing, tags:["things"])
         }
         
-        let foundStuff = cache.query("/things")
+        let foundStuff = cache.query("things")
         XCTAssertEqual(stuff.count, foundStuff.count,"Query returned the wrong number of records")
         
         let foundStrings = foundStuff.filter { (path:String,object:Any) -> Bool in
@@ -218,50 +227,83 @@ class FierceCacheBasicTests: XCTestCase {
         
         for ( var i = 0; i < stuff.count; i++ ) {
             let thing = stuff[i]
-            cache.set("/things/\(i)", object: thing)
+            cache.set("things\(i)", object: thing, tags:["thing"])
         }
         
-        let foundStuff = cache.query("/nothings")
+        let foundStuff = cache.query("nothings")
         XCTAssertTrue(foundStuff.count == 0)
     }
     
-    func testQueryWithFilter() {
+    func testQueryFromMultiSet() {
+        
+        let stuff:[(String,Any?,[String])] = [("thing_1","first one",["things"]),("thing_2","second one",["things"]),("thing_3","third",["things"]),("thing_4","fourth",["things"])]
+        cache.set(stuff)
+        
+        let foundStuff = cache.query("things")
+        XCTAssertEqual(stuff.count, foundStuff.count,"Query returned the wrong number of records")
+    }
 
-        let stuff = ["first one", "second one", "third", "fourth"]
+    func testQueryAfterDelete() {
         
-        for ( var i = 0; i < stuff.count; i++ ) {
-            let thing = stuff[i]
-            cache.set("/things/\(i)", object: thing)
+        let payload = "This is the initial string"
+        cache.set("strings_delete", object: payload, tags:["strings"])
+        
+        if let result = cache.get("strings_delete") as? String {
+            XCTAssertEqual(result, payload,"Cache returned something but wasn't the same as what we put in")
         }
-    
-        let foundStuff = cache.query("/things",filter:{ (path:String,value:Any) -> Bool in
-            path.hasSuffix("1")
-        })
-        XCTAssertTrue(foundStuff.count == 1)
-    }
-    
-    func testQueryWithComplexFilter() {
-        
-        let stuff:Array<Any> = ["first one", "second one", StructTest(name: "fred", title: "rock crucsher"), StructTest(name:"wilma", title: "saint"), ClassTest(name: "barney", title: "whatever")]
-        
-        for ( var i = 0; i < stuff.count; i++ ) {
-            let thing = stuff[i]
-            cache.set("/things/\(i)", object: thing)
+        else {
+            XCTFail("cache returned a nil object, but it should have been there")
         }
         
-        let foundStuff = cache.query("/things",filter:{ (path:String,value:Any) -> Bool in
-            if let structVal:StructTest = value as? StructTest {
-                if structVal.name == "wilma" {
-                    return true
-                }
-                else {
-                    return false
-                }
-            }
-            else {
-                return false
-            }
-        })
-        XCTAssertTrue(foundStuff.count == 1)
+        let foundStuff = cache.query("strings")
+        XCTAssertEqual(foundStuff.count,1,"Query didn't return 1 row")
+        
+        cache.set("strings_delete", object: nil)
+        if let result = cache.get("strings_delete") as? String {
+            XCTFail("cache returned something, but it was supposed to be deleted. returned \(result)")
+        }
+
+        let foundStuffAfterDelete = cache.query("strings")
+        XCTAssertEqual(foundStuffAfterDelete.count,0,"Query didn't return 1 row")
     }
+    
+//    func testQueryWithFilter() {
+//
+//        let stuff = ["first one", "second one", "third", "fourth"]
+//        
+//        for ( var i = 0; i < stuff.count; i++ ) {
+//            let thing = stuff[i]
+//            cache.set("/things/\(i)", object: thing)
+//        }
+//    
+//        let foundStuff = cache.query("/things",filter:{ (path:String,value:Any) -> Bool in
+//            path.hasSuffix("1")
+//        })
+//        XCTAssertTrue(foundStuff.count == 1)
+//    }
+//    
+//    func testQueryWithComplexFilter() {
+//        
+//        let stuff:Array<Any> = ["first one", "second one", StructTest(name: "fred", title: "rock crucsher"), StructTest(name:"wilma", title: "saint"), ClassTest(name: "barney", title: "whatever")]
+//        
+//        for ( var i = 0; i < stuff.count; i++ ) {
+//            let thing = stuff[i]
+//            cache.set("/things/\(i)", object: thing)
+//        }
+//        
+//        let foundStuff = cache.query("/things",filter:{ (path:String,value:Any) -> Bool in
+//            if let structVal:StructTest = value as? StructTest {
+//                if structVal.name == "wilma" {
+//                    return true
+//                }
+//                else {
+//                    return false
+//                }
+//            }
+//            else {
+//                return false
+//            }
+//        })
+//        XCTAssertTrue(foundStuff.count == 1)
+//    }
 }

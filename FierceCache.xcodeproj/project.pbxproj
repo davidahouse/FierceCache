@@ -20,6 +20,9 @@
 		94D332DA1B44C02E009C0A01 /* FierceCacheBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D332D91B44C02E009C0A01 /* FierceCacheBinder.swift */; };
 		94D332DC1B44C5B0009C0A01 /* FierceCacheBinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D332DB1B44C5B0009C0A01 /* FierceCacheBinderTests.swift */; };
 		94D332DD1B44C5D0009C0A01 /* FierceCacheBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D332D91B44C02E009C0A01 /* FierceCacheBinder.swift */; };
+		DC9B5D9D1BAE092B005C9FFC /* FierceCacheTagBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9B5D9C1BAE092B005C9FFC /* FierceCacheTagBinder.swift */; settings = {ASSET_TAGS = (); }; };
+		DC9B5D9E1BAE092B005C9FFC /* FierceCacheTagBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9B5D9C1BAE092B005C9FFC /* FierceCacheTagBinder.swift */; settings = {ASSET_TAGS = (); }; };
+		DC9B5DA01BAE0AA6005C9FFC /* FierceCacheTagBinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9B5D9F1BAE0AA6005C9FFC /* FierceCacheTagBinderTests.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,8 @@
 		94D332D91B44C02E009C0A01 /* FierceCacheBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FierceCacheBinder.swift; sourceTree = "<group>"; };
 		94D332DB1B44C5B0009C0A01 /* FierceCacheBinderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FierceCacheBinderTests.swift; sourceTree = "<group>"; };
 		94F6F8B11B50055200C2E735 /* FierceCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FierceCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC9B5D9C1BAE092B005C9FFC /* FierceCacheTagBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FierceCacheTagBinder.swift; sourceTree = "<group>"; };
+		DC9B5D9F1BAE0AA6005C9FFC /* FierceCacheTagBinderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FierceCacheTagBinderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +106,7 @@
 			children = (
 				944E02641B44024C000DD7CE /* FierceCache.swift */,
 				94D332D91B44C02E009C0A01 /* FierceCacheBinder.swift */,
+				DC9B5D9C1BAE092B005C9FFC /* FierceCacheTagBinder.swift */,
 				944E024D1B4401FF000DD7CE /* FierceCache.h */,
 				944E024F1B4401FF000DD7CE /* Info.plist */,
 			);
@@ -115,6 +121,7 @@
 				944E026A1B4426A6000DD7CE /* FierceCacheNotificationTests.swift */,
 				94D332DB1B44C5B0009C0A01 /* FierceCacheBinderTests.swift */,
 				9468C7C51B46A68D007514DC /* FierceCacheDelegateTests.swift */,
+				DC9B5D9F1BAE0AA6005C9FFC /* FierceCacheTagBinderTests.swift */,
 			);
 			path = FierceCacheTests;
 			sourceTree = "<group>";
@@ -264,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC9B5D9D1BAE092B005C9FFC /* FierceCacheTagBinder.swift in Sources */,
 				94D332DA1B44C02E009C0A01 /* FierceCacheBinder.swift in Sources */,
 				944E02661B44024C000DD7CE /* FierceCache.swift in Sources */,
 			);
@@ -276,9 +284,11 @@
 				94D332DC1B44C5B0009C0A01 /* FierceCacheBinderTests.swift in Sources */,
 				94D332DD1B44C5D0009C0A01 /* FierceCacheBinder.swift in Sources */,
 				944E026B1B4426A6000DD7CE /* FierceCacheNotificationTests.swift in Sources */,
+				DC9B5D9E1BAE092B005C9FFC /* FierceCacheTagBinder.swift in Sources */,
 				944E02681B44029D000DD7CE /* FierceCache.swift in Sources */,
 				944E025A1B4401FF000DD7CE /* FierceCacheBasicTests.swift in Sources */,
 				9468C7C61B46A68D007514DC /* FierceCacheDelegateTests.swift in Sources */,
+				DC9B5DA01BAE0AA6005C9FFC /* FierceCacheTagBinderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

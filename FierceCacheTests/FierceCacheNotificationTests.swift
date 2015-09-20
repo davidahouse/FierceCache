@@ -29,13 +29,13 @@ class FierceCacheNotificationTests: XCTestCase {
          
             if let userInfo = notification.userInfo, details = userInfo["notification"] as? FierceCacheNotification {
                 
-                print("notification for \(details.path)")
+                print("notification for \(details.key)")
                 
                 if details.type != .Insert {
                     return false
                 }
                 
-                if details.path != "/strings/1" {
+                if details.key != "strings_1" {
                     return false
                 }
                 
@@ -54,10 +54,10 @@ class FierceCacheNotificationTests: XCTestCase {
             return false
         }
         
-        self.expectationForNotification("/strings/1", object: nil, handler: handler)
+        self.expectationForNotification("FierceCacheNotification_strings_1", object: nil, handler: handler)
         
         let payload = "This is a test payload going into the cache"
-        cache.set("/strings/1", object:payload)
+        cache.set("strings_1", object:payload)
         
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
@@ -68,13 +68,13 @@ class FierceCacheNotificationTests: XCTestCase {
             
             if let userInfo = notification.userInfo, details = userInfo["notification"] as? FierceCacheNotification {
                 
-                print("notification for \(details.path)")
+                print("notification for \(details.key)")
                 
                 if details.type != .Update {
                     return false
                 }
                 
-                if details.path != "/strings/update" {
+                if details.key != "strings_update" {
                     return false
                 }
                 
@@ -93,12 +93,12 @@ class FierceCacheNotificationTests: XCTestCase {
             return false
         }
         
-        self.expectationForNotification("/strings/update", object: nil, handler: handler)
+        self.expectationForNotification("FierceCacheNotification_strings_update", object: nil, handler: handler)
         
         let payload = "This is the initial string"
-        cache.set("/strings/update", object: payload)
+        cache.set("strings_update", object: payload)
         
-        if let result = cache.get("/strings/update") as? String {
+        if let result = cache.get("strings_update") as? String {
             XCTAssertEqual(result, payload,"Cache returned something but wasn't the same as what we put in")
         }
         else {
@@ -106,9 +106,9 @@ class FierceCacheNotificationTests: XCTestCase {
         }
         
         let newPayload = "Here is the newer string"
-        cache.set("/strings/update", object: newPayload)
+        cache.set("strings_update", object: newPayload)
         
-        if let result = cache.get("/strings/update") as? String {
+        if let result = cache.get("strings_update") as? String {
             XCTAssertEqual(result, newPayload,"Cache returned something but wasn't the same as what we put in")
         }
         else {
@@ -124,13 +124,13 @@ class FierceCacheNotificationTests: XCTestCase {
             
             if let userInfo = notification.userInfo, details = userInfo["notification"] as? FierceCacheNotification {
                 
-                print("notification for \(details.path)")
+                print("notification for \(details.key)")
                 
                 if details.type != .Delete {
                     return false
                 }
                 
-                if details.path != "/strings/delete" {
+                if details.key != "strings_delete" {
                     return false
                 }
                 
@@ -144,62 +144,23 @@ class FierceCacheNotificationTests: XCTestCase {
             return false
         }
         
-        self.expectationForNotification("/strings/delete", object: nil, handler: handler)
+        self.expectationForNotification("FierceCacheNotification_strings_delete", object: nil, handler: handler)
         
         let payload = "This is the initial string"
-        cache.set("/strings/delete", object: payload)
+        cache.set("strings_delete", object: payload)
         
-        if let result = cache.get("/strings/delete") as? String {
+        if let result = cache.get("strings_delete") as? String {
             XCTAssertEqual(result, payload,"Cache returned something but wasn't the same as what we put in")
         }
         else {
             XCTFail("cache returned a nil object, but it should have been there")
         }
         
-        cache.set("/strings/delete", object: nil)
-        if let result = cache.get("/strings/delete") as? String {
+        cache.set("strings_delete", object: nil)
+        if let result = cache.get("strings_delete") as? String {
             XCTFail("cache returned something, but it was supposed to be deleted. returned \(result)")
         }
 
-        self.waitForExpectationsWithTimeout(5.0, handler: nil)
-    }
-
-    func testNotificationPropagation() {
-        
-        let handler : XCNotificationExpectationHandler = { notification in
-            
-            if let userInfo = notification.userInfo, details = userInfo["notification"] as? FierceCacheNotification {
-                
-                print("notification for \(details.path)")
-                
-                if details.type != .Insert {
-                    return false
-                }
-                
-                if details.path != "/strings" {
-                    return false
-                }
-                
-                if let payloadString = details.object as? String {
-                    if payloadString == "This is a test payload going into the cache" {
-                        return true
-                    }
-                    else {
-                        return false
-                    }
-                }
-                else {
-                    return false
-                }
-            }
-            return false
-        }
-        
-        self.expectationForNotification("/strings", object: nil, handler: handler)
-        
-        let payload = "This is a test payload going into the cache"
-        cache.set("/strings/1", object:payload)
-        
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
     
