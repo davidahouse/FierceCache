@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import FierceCache
 
 class FierceCacheMockDelegate : FierceCacheProviderDelegate {
     
